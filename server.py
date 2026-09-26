@@ -80,7 +80,7 @@ def reply(req:ReplyReq):
     if typ=="stop": return {"action":"end","rationale":"Explicit opt-out/not-interested signal; stop the conversation without further persuasion."}
     if typ=="auto":
         repeats=sum(1 for x in conv["history"] if x.get("role")==req.from_role and x.get("body","").strip().lower()==req.message.strip().lower())
-        if repeats>=2: return {"action":"wait","wait_seconds":1800,"rationale":"Detected a repeated canned/auto-reply; wait rather than burn another turn."}
+        if repeats>=2: return {"action":"end","rationale":"Repeated canned/auto-replies detected; end the conversation rather than continue messaging."}
         return {"action":"wait","wait_seconds":900,"rationale":"Reply resembles a WhatsApp canned acknowledgement; wait for a substantive response."}
     if typ=="yes":
         body="Done — I’ll move to the next step using the context you already approved. I won’t re-qualify unless something essential is missing."
