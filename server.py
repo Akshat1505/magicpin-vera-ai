@@ -67,8 +67,8 @@ YES_PAT=["yes","y","go ahead","do it","let's do it","lets do it","send it","send
 def _classify(msg):
     s=msg.lower().strip()
     if any(x in s for x in STOP_PAT): return "stop"
-    if any(x in s for x in YES_PAT): return "yes"
     if any(x in s for x in AUTO_PAT): return "auto"
+    if any(x in s for x in YES_PAT): return "yes"
     if "when" in s or "how much" in s or "what" in s or "why" in s: return "question"
     return "other"
 
